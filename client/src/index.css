@@ -1,0 +1,38 @@
+html, body, #root {
+  height: 100%;
+  margin: 0;
+  overflow: hidden; /* Removes scroll */
+}
+.emoji-picker-react {
+  z-index: 1000 !important;
+  position: absolute !important;
+}
+
+.emoji-reaction {
+  font-family: "Apple Color Emoji", "Segoe UI Emoji", "Noto Color Emoji";
+  line-height: 1;
+}
+
+.reactions-container {
+  display: flex;
+  gap: 4px;
+  flex-wrap: wrap;
+  margin-top: 4px;
+}
+
+
+.scrollbar-hidden::-webkit-scrollbar {
+  display: none;
+}
+.scrollbar-hidden {
+  -ms-overflow-style: none; /* IE/Edge */
+  scrollbar-width: none;    /* Firefox */
+}
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+body {
+  @apply overflow-x-hidden;
+}

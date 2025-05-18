@@ -1,0 +1,168 @@
+/* App.css */
+@keyframes float {
+  0% {
+    transform: translateY(0) translateX(0);
+  }
+  50% {
+    transform: translateY(-100px) translateX(20px);
+  }
+  100% {
+    transform: translateY(0) translateX(0);
+    opacity: 0;
+  }
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background: linear-gradient(#8921C2, #FE39A4);
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: linear-gradient(#FE39A4, #FFFDBB);
+}
+
+/* Neon glow effect */
+.neon-text {
+  text-shadow: 0 0 5px #8921C2, 0 0 10px #FE39A4, 0 0 15px #25CDF8;
+}
+
+/* .neon-box {
+  box-shadow: 0 0 10px #8921C2, 0 0 20px #FE39A4, 0 0 30px #25CDF8;
+} */
+
+/* Pulse animation */
+@keyframes pulse {
+  0% {
+    box-shadow: 0 0 0 0 rgba(137, 33, 194, 0.7);
+  }
+  70% {
+    box-shadow: 0 0 0 10px rgba(137, 33, 194, 0);
+  }
+  100% {
+    box-shadow: 0 0 0 0 rgba(137, 33, 194, 0);
+  }
+}
+
+.pulse {
+  animation: pulse 2s infinite;
+}
+
+/* Message bubbles with neon effects */
+.neon-message-left {
+  background: rgba(39, 39, 42, 0.7);
+  border-left: 3px solid #25CDF8;
+  box-shadow: 0 0 10px rgba(37, 205, 248, 0.3);
+}
+
+.neon-message-right {
+  background: linear-gradient(135deg, rgba(137, 33, 194, 0.3), rgba(254, 57, 164, 0.3));
+  border-right: 3px solid #FE39A4;
+  box-shadow: 0 0 10px rgba(254, 57, 164, 0.3);
+}
+
+/* Input field glow */
+.neon-input:focus {
+  box-shadow: 0 0 10px rgba(137, 33, 194, 0.5), 0 0 20px rgba(254, 57, 164, 0.3);
+}
+
+/* Button glow */
+.neon-button {
+  transition: all 0.3s ease;
+}
+
+.neon-button:hover {
+  box-shadow: 0 0 15px rgba(137, 33, 194, 0.7), 0 0 25px rgba(254, 57, 164, 0.5);
+}
+
+/* Add to App.css */
+@keyframes float-up {
+  0% {
+    transform: translateY(0);
+    opacity: 0;
+  }
+  100% {
+    transform: translateY(-20px);
+    opacity: 1;
+  }
+}
+
+.message-enter {
+  animation: float-up 0.3s ease-out forwards;
+}
+
+/* Smoke animation */
+@keyframes smoke-float {
+  0% {
+    transform: translate(0, 0) scale(1);
+    opacity: 0.1;
+  }
+  50% {
+    transform: translate(20px, -20px) scale(1.2);
+    opacity: 0.3;
+  }
+  100% {
+    transform: translate(0, 0) scale(1);
+    opacity: 0.1;
+  }
+}
+
+/* Light streaks */
+@keyframes light-streak {
+  0% {
+    transform: translateX(-100%) skewX(-20deg);
+    opacity: 0;
+  }
+  50% {
+    opacity: 0.3;
+  }
+  100% {
+    transform: translateX(100%) skewX(-20deg);
+    opacity: 0;
+  }
+}
+
+/* Add these to your existing animations */
+.neon-pulse {
+  animation: neon-pulse 2s infinite alternate;
+}
+
+@keyframes neon-pulse {
+  0% {
+    box-shadow: 0 0 5px rgba(137, 33, 194, 0.5);
+  }
+  100% {
+    box-shadow: 0 0 20px rgba(254, 57, 164, 0.8);
+  }
+}
+
+neon-ring {
+  animation: neon-pulse 3s infinite alternate;
+}
+
+@keyframes neon-pulse {
+  0% {
+    box-shadow: 0 0 30px rgba(137, 33, 194, 0.5);
+  }
+  100% {
+    box-shadow: 0 0 60px rgba(254, 57, 164, 0.8);
+  }
+}
+
+/* Avatar initials styling */
+.avatar-initial {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 600;
+  text-transform: uppercase;
+  background: linear-gradient(135deg, #8921C2, #FE39A4);
+}

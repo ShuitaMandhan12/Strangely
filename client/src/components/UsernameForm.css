@@ -1,0 +1,63 @@
+/* components/UsernameForm.css */
+@keyframes float-smoke {
+    0% {
+      transform: translate(0, 0) scale(1);
+      opacity: 0.1;
+    }
+    50% {
+      transform: translate(20px, -20px) scale(1.5);
+      opacity: 0.3;
+    }
+    100% {
+      transform: translate(0, 0) scale(1);
+      opacity: 0.1;
+    }
+  }
+  
+  @keyframes neon-pulse {
+    0% {
+      box-shadow: 0 0 30px rgba(137, 33, 194, 0.5);
+    }
+    100% {
+      box-shadow: 0 0 60px rgba(254, 57, 164, 0.8);
+    }
+  }
+  
+  .neon-ring {
+    animation: neon-pulse 3s infinite alternate;
+  }
+
+  /* Add to UsernameForm.css */
+@keyframes cloud-pulse {
+  0% {
+    opacity: 0.4;
+  }
+  50% {
+    opacity: 0.7;
+  }
+  100% {
+    opacity: 0.4;
+  }
+}
+
+.neon-cloud {
+  animation: cloud-pulse 4s infinite ease-in-out;
+  filter: drop-shadow(0 0 10px currentColor);
+}
+
+/* Add to UsernameForm.css */
+@keyframes cloud-glow {
+  0% {
+    filter: drop-shadow(0 0 10px currentColor);
+  }
+  50% {
+    filter: drop-shadow(0 0 20px currentColor);
+  }
+  100% {
+    filter: drop-shadow(0 0 10px currentColor);
+  }
+}
+
+.neon-cloud {
+  animation: cloud-glow 3s infinite ease-in-out;
+}
