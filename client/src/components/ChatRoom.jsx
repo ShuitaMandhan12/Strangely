@@ -507,7 +507,8 @@ export default function ChatRoom({ username, avatarIndex: initialAvatarIndex }) 
   };
 
   return (
-    <div className={`h-screen w-screen overflow-hidden bg-slate-50 dark:bg-slate-900 flex`}>
+     <div className="min-h-screen w-full bg-slate-50 dark:bg-slate-900 flex flex-col md:flex-row">
+
       {/* Mobile menu button */}
       
       
