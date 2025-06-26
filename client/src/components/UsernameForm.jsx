@@ -1,7 +1,9 @@
+// components/UsernameForm.jsx
 import { useState, useEffect } from 'react';
 import AvatarSelector from './AvatarSelector';
 import SmokeBackground from './SmokeBackground';
 import './UsernameForm.css';
+import { Sun, Moon, X } from 'lucide-react';
 
 export default function UsernameForm({ onJoin }) {
   const [username, setUsername] = useState('');
@@ -28,11 +30,11 @@ export default function UsernameForm({ onJoin }) {
   };
 
   return (
-    <div className="relative flex items-center justify-center min-h-screen w-full bg-gray-900 overflow-x-hidden px-4">
+    <div className="relative flex items-center justify-center min-h-screen w-screen bg-gray-900 overflow-hidden">
       <SmokeBackground />
-
-      {/* Neon ring */}
-      <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
+      
+      {/* Neon ring background */}
+       <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
         <div className="neon-ring absolute w-[600px] sm:w-[400px] md:w-[600px] lg:w-[800px] aspect-square rounded-full border-8 border-transparent" 
              style={{
                borderImage: 'linear-gradient(45deg, #8921C2, #FE39A4, #FFFDBB, #53E8D4, #25CDF8) 1',
@@ -41,11 +43,11 @@ export default function UsernameForm({ onJoin }) {
       </div>
 
       {/* Form container */}
-      <div className="relative bg-gray-800/80 backdrop-blur-lg rounded-xl shadow-2xl p-6 sm:p-8 w-full max-w-md z-10 border border-gray-700">
-        <h1 className="text-3xl sm:text-4xl font-bold text-center mb-6 sm:mb-8 text-transparent bg-clip-text bg-gradient-to-r from-purple-400 via-pink-500 to-yellow-300">
-          Strangely
+      <div className="relative bg-gray-800/80 backdrop-blur-lg rounded-xl shadow-2xl p-8 w-full max-w-md z-10 border border-gray-700">
+        <h1 className="text-4xl font-bold text-center mb-8 text-transparent bg-clip-text bg-gradient-to-r from-purple-400 via-pink-500 to-yellow-300">
+        Strangely
         </h1>
-
+        
         <form onSubmit={handleSubmit} className="space-y-6">
           <div className="space-y-4">
             <label className="block text-sm font-medium text-gray-300">
@@ -53,7 +55,7 @@ export default function UsernameForm({ onJoin }) {
             </label>
             <AvatarSelector selected={selectedAvatar} onSelect={setSelectedAvatar} />
           </div>
-
+          
           <div className="space-y-2">
             <label htmlFor="username" className="block text-sm font-medium text-gray-300">
               Enter your username
@@ -69,7 +71,7 @@ export default function UsernameForm({ onJoin }) {
               autoFocus
             />
           </div>
-
+          
           <button
             type="submit"
             className="w-full bg-gradient-to-r from-purple-600 to-pink-500 text-white font-bold py-3 px-4 rounded-lg hover:opacity-90 transition-opacity shadow-lg hover:shadow-purple-500/30"
