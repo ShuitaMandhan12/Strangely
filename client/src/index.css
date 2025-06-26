@@ -1,8 +1,10 @@
 html, body, #root {
-  height: 100%;
+  min-height: 100vh;
+  overflow-x: hidden;
   margin: 0;
-  overflow: hidden; /* Removes scroll */
 }
+
+
 .emoji-picker-react {
   z-index: 1000 !important;
   position: absolute !important;

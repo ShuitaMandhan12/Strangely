@@ -19,7 +19,7 @@ function Avatar({ username, avatarIndex, size = 'md', className = '' }) {
     lg: 'w-12 h-12 text-3xl'
   };
 
-  const avatars = ["👨", "👩", "🧑", "👨‍🦰", "👩‍🦰", "👨‍🦱", "👩‍🦱", "👨‍💼", "👩‍💼"];
+const avatars = ["👨", "👩", "🧑", "👨‍🦰", "👩‍🦰", "👨‍🦱", "👩‍🦱", "👨‍💼", "👩‍💼", "🧔", "🧓", "👳‍♂️", "👲", "🧕", "👮‍♂️"];
 
   return (
     <div className={`rounded-full flex items-center justify-center ${sizes[size]} ${className}`}>
