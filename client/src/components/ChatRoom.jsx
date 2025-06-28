@@ -693,7 +693,7 @@ ${showSidebar ? 'translate-x-0' : '-translate-x-full md:translate-x-0'}
         </div>
         
         {/* Messages Area */}
-         <div className="flex-1 p-4 space-y-1 overflow-y-auto overflow-x-hidden scrollbar-hidden bg-white dark:bg-slate-900">
+         <div className="flex-1 p-4 space-y-1 overflow-y-auto overflow-x-hidden scrollbar-hidden bg-white dark:bg-slate-900" style={{ height: 'calc(100vh - 60px)' }}>
         {messages.map((msg) => (
   msg.isSystem ? (
     <div key={msg.id} className="text-center my-2">
