@@ -655,7 +655,7 @@ ${showSidebar ? 'translate-x-0' : '-translate-x-full md:translate-x-0'}
       {/* Main Chat Area */}
       <div className="flex-1 flex flex-col relative h-full">
         {/* Chat Header */}
-        <div className="bg-gradient-to-r from-purple-900/80 to-pink-800/80 p-3 flex items-center justify-between backdrop-blur-sm border-b border-purple-500/30">
+         <div className="bg-gradient-to-r from-purple-900/80 to-pink-800/80 p-3 flex items-center justify-between backdrop-blur-sm border-b border-purple-500/30">
           <div className="flex items-center space-x-3">
             <button 
               onClick={() => setShowSidebar(true)}
@@ -693,7 +693,7 @@ ${showSidebar ? 'translate-x-0' : '-translate-x-full md:translate-x-0'}
         </div>
         
         {/* Messages Area */}
-        <div className="flex-1 p-4 space-y-1 overflow-y-auto overflow-x-hidden scrollbar-hidden bg-white dark:bg-slate-900">
+         <div className="flex-1 p-4 space-y-1 overflow-y-auto overflow-x-hidden scrollbar-hidden bg-white dark:bg-slate-900">
         {messages.map((msg) => (
   msg.isSystem ? (
     <div key={msg.id} className="text-center my-2">
@@ -1029,12 +1029,12 @@ ${showSidebar ? 'translate-x-0' : '-translate-x-full md:translate-x-0'}
       </div>
       
       {/* Overlay for mobile sidebar */}
-      {showSidebar && window.innerWidth < 768 && (
-        <div 
-          className="fixed inset-0 bg-black bg-opacity-50 z-10 md:hidden"
-          onClick={() => setShowSidebar(false)}
-        />
-      )}
+       {showSidebar && window.innerWidth < 768 && (
+      <div 
+        className="fixed inset-0 bg-black bg-opacity-50 z-10 md:hidden"
+        onClick={() => setShowSidebar(false)}
+      />
+    )}
   
       {/* Create Room Modal */}
       {showCreateRoomModal && (
