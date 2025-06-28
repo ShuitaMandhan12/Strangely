@@ -507,7 +507,7 @@ export default function ChatRoom({ username, avatarIndex: initialAvatarIndex }) 
   };
 
   return (
-    <div className={`h-screen w-screen overflow-hidden bg-slate-50 dark:bg-slate-900 flex flex-col`}>
+    <div className={`h-screen w-screen overflow-hidden bg-slate-50 dark:bg-slate-900 flex`}>
       {/* Mobile menu button */}
       
       
@@ -515,11 +515,11 @@ export default function ChatRoom({ username, avatarIndex: initialAvatarIndex }) 
       <div 
         ref={sidebarRef}
         className={`
-${showSidebar ? 'translate-x-0' : '-translate-x-full md:translate-x-0'} 
-        transform transition-transform duration-300 ease-in-out 
-        fixed md:relative inset-y-0 left-0 z-20 bg-white/90 dark:bg-gray-900/90 backdrop-blur-lg w-72 shadow-lg md:shadow-none sidebar
-        flex flex-col border-r border-gray-200 dark:border-gray-800
-      `}
+          ${showSidebar ? 'translate-x-0' : '-translate-x-full md:translate-x-0'} 
+          transform transition-transform duration-300 ease-in-out 
+          fixed md:relative inset-y-0 left-0 z-20 bg-white/90 dark:bg-gray-900/90 backdrop-blur-lg w-72 shadow-lg md:shadow-none sidebar
+          flex flex-col border-r border-gray-200 dark:border-gray-800
+        `}
       >
         <div className="p-4 bg-gradient-to-r from-purple-900 to-pink-800 flex justify-between items-center border-b border-purple-500/30">
           <h2 className="text-xl font-bold text-white neon-text">Strangely</h2>
