@@ -35,7 +35,7 @@ export default function UsernameForm({ onJoin }) {
       
       {/* Neon ring background */}
        <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
-        <div className="neon-ring absolute w-[500px] sm:w-[350px] md:w-[650px] lg:w-[650px] aspect-square rounded-full border-8 border-transparent" 
+        <div className="neon-ring absolute w-[500px] sm:w-[600px] md:w-[800px] lg:w-[600px] aspect-square rounded-full border-8 border-transparent" 
              style={{
                borderImage: 'linear-gradient(45deg, #8921C2, #FE39A4, #FFFDBB, #53E8D4, #25CDF8) 1',
                boxShadow: '0 0 60px rgba(137, 33, 194, 0.7), 0 0 100px rgba(254, 57, 164, 0.5)'
@@ -43,7 +43,7 @@ export default function UsernameForm({ onJoin }) {
       </div>
 
       {/* Form container */}
-      <div className="relative bg-gray-800/80 backdrop-blur-lg rounded-xl shadow-2xl p-9 absolute w-[350px] sm:w-[400px] md:w-[450px] lg:w-[450px]  z-10 border border-gray-700">
+      <div className="relative bg-gray-800/80 backdrop-blur-lg rounded-xl shadow-2xl p-9 absolute w-[380px] sm:w-[380px] md:w-[380px] lg:w-[400px]  z-10 border border-gray-700">
         <h1 className="text-4xl font-bold text-center mb-8 text-transparent bg-clip-text bg-gradient-to-r from-purple-400 via-pink-500 to-yellow-300">
         Strangely
         </h1>
