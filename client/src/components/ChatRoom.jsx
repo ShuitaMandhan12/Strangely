@@ -507,7 +507,8 @@ export default function ChatRoom({ username, avatarIndex: initialAvatarIndex }) 
   };
 
   return (
-    <div className={`md:h-screen h-[100dvh] w-screen overflow-hidden bg-slate-50 dark:bg-slate-900 flex flex-col`}>
+    <div className="min-h-screen w-full bg-slate-50 dark:bg-slate-900 flex flex-col md:flex-row">
+
       {/* Mobile menu button */}
       
       
@@ -515,9 +516,9 @@ export default function ChatRoom({ username, avatarIndex: initialAvatarIndex }) 
       <div 
         ref={sidebarRef}
         className={`
-          ${showSidebar ? 'translate-x-0' : '-translate-x-full md:translate-x-0'} 
+          ${showSidebar ? 'translate-x-0' : '-translate-x-full lg:translate-x-0'} 
           transform transition-transform duration-300 ease-in-out 
-          fixed md:relative inset-y-0 left-0 z-20 bg-white/90 dark:bg-gray-900/90 backdrop-blur-lg w-72 shadow-lg md:shadow-none sidebar
+          fixed lg:relative inset-y-0 left-0 z-20 bg-white/90 dark:bg-gray-900/90 backdrop-blur-lg w-72 shadow-lg lg:shadow-none sidebar
           flex flex-col border-r border-gray-200 dark:border-gray-800
         `}
       >
@@ -653,13 +654,13 @@ export default function ChatRoom({ username, avatarIndex: initialAvatarIndex }) 
       </div>
       
       {/* Main Chat Area */}
-      <div className="flex-1 flex flex-col relative overflow-hidden">
+      <div className="flex-1 flex flex-col relative h-full">
         {/* Chat Header */}
         <div className="bg-gradient-to-r from-purple-900/80 to-pink-800/80 p-3 flex items-center justify-between backdrop-blur-sm border-b border-purple-500/30">
           <div className="flex items-center space-x-3">
             <button 
               onClick={() => setShowSidebar(true)}
-              className="md:hidden mr-1 p-1.5 rounded-full hover:bg-purple-800/30 text-white"
+              className="lg:hidden mr-1 p-1.5 rounded-full hover:bg-purple-800/30 text-white"
             >
               <Menu size={20} />
             </button>
@@ -693,7 +694,7 @@ export default function ChatRoom({ username, avatarIndex: initialAvatarIndex }) 
         </div>
         
         {/* Messages Area */}
-        <div className="flex-1 p-4 space-y-1 overflow-y-auto overflow-x-hidden scrollbar-hidden bg-white dark:bg-slate-900 md:max-h-[none] max-h-[calc(100dvh-120px)]">
+        <div className="flex-1 p-4 space-y-1 overflow-y-auto overflow-x-hidden scrollbar-hidden bg-white dark:bg-slate-900">
         {messages.map((msg) => (
   msg.isSystem ? (
     <div key={msg.id} className="text-center my-2">
