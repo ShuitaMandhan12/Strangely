@@ -42,7 +42,7 @@ export default function ChatRoom({ username, avatarIndex: initialAvatarIndex }) 
   const [typingUsers, setTypingUsers] = useState([]);
   const [editingMessageId, setEditingMessageId] = useState(null);
   const [showEmojis, setShowEmojis] = useState(false);
-  const [showSidebar, setShowSidebar] = useState(window.innerWidth > 1024);
+  const [showSidebar, setShowSidebar] = useState(window.innerWidth > 1280);
   const [darkMode, setDarkMode] = useState(false);
   const [readReceipts, setReadReceipts] = useState({});
   const [uploading, setUploading] = useState(false);
@@ -100,7 +100,7 @@ export default function ChatRoom({ username, avatarIndex: initialAvatarIndex }) 
   // Handle window resize for sidebar visibility
   useEffect(() => {
     const handleResize = () => {
-      setShowSidebar(window.innerWidth > 1024)
+      setShowSidebar(window.innerWidth > 1280)
     }
 
     window.addEventListener('resize', handleResize)
@@ -131,7 +131,7 @@ export default function ChatRoom({ username, avatarIndex: initialAvatarIndex }) 
         }
       }
     
-      if (window.innerWidth < 1024 && showSidebar && 
+      if (window.innerWidth < 1280 && showSidebar && 
           !event.target.closest('.sidebar') && 
           !event.target.closest('.menu-button')) {
         setShowSidebar(false)
@@ -434,7 +434,7 @@ export default function ChatRoom({ username, avatarIndex: initialAvatarIndex }) 
     socket.emit('change-room', room)
     setActiveRoom(room)
     setReplyingTo(null)
-    if (window.innerWidth < 1024) {
+    if (window.innerWidth < 1280) {
       setShowSidebar(false)
     }
   }
@@ -507,20 +507,21 @@ export default function ChatRoom({ username, avatarIndex: initialAvatarIndex }) 
   };
 
   return (
-   <div className={`h-screen w-full max-w-full overflow-hidden bg-slate-50 dark:bg-slate-900 flex`}>
+    <div className="h-screen w-full flex flex-col overflow-hidden bg-slate-50 dark:bg-slate-900">
       {/* Mobile menu button */}
       
       
       {/* Sidebar - Rooms and Online Users */}
-      <div 
-        ref={sidebarRef}
-        className={`
-           ${showSidebar ? 'translate-x-0' : '-translate-x-full lg:translate-x-0'} 
-    transform transition-transform duration-300 ease-in-out 
-    fixed lg:relative inset-y-0 left-0 z-20 bg-white/90 dark:bg-gray-900/90 backdrop-blur-lg w-72 shadow-lg lg:shadow-none sidebar
-    flex flex-col border-r border-gray-200 dark:border-gray-800
-        `}
-      >
+     <div className="flex flex-1 min-h-0">
+  {/* Sidebar */}
+  <div ref={sidebarRef} className={`
+    ${showSidebar ? 'translate-x-0' : '-translate-x-full xl:translate-x-0'}
+    transform transition-transform duration-300 ease-in-out
+    fixed xl:relative inset-y-0 left-0 z-20
+    bg-white/90 dark:bg-gray-900/90 backdrop-blur-lg
+    w-72 shadow-lg xl:shadow-none sidebar flex flex-col
+    border-r border-gray-200 dark:border-gray-800
+  `}>
         <div className="p-4 bg-gradient-to-r from-purple-900 to-pink-800 flex justify-between items-center border-b border-purple-500/30">
           <h2 className="text-xl font-bold text-white neon-text">Strangely</h2>
           <div className="flex items-center space-x-3">
@@ -546,7 +547,8 @@ export default function ChatRoom({ username, avatarIndex: initialAvatarIndex }) 
             </button>
           </div>
         </div>
-        
+        </div>
+
         {/* Tab Navigation */}
         <div className="flex border-b border-gray-200 dark:border-gray-800">
           <button
@@ -653,14 +655,14 @@ export default function ChatRoom({ username, avatarIndex: initialAvatarIndex }) 
       </div>
       
       {/* Main Chat Area */}
-      <div className="flex-1 flex flex-col relative h-full min-w-0">
+       <div className="flex-1 flex flex-col min-w-0 h-full">
         {/* Chat Header */}
         <div className="bg-gradient-to-r from-purple-900/80 to-pink-800/80 p-3 flex items-center justify-between backdrop-blur-sm border-b border-purple-500/30">
           <div className="flex items-center space-x-3">
             <button 
               onClick={() => setShowSidebar(true)}
-              className="lg:hidden mr-1 p-1.5 rounded-full hover:bg-purple-800/30 text-white menu-button"
-            >
+              className="xl:hidden mr-1 p-1.5 rounded-full hover:bg-purple-800/30 text-white menu-button"
+>
               <Menu size={20} />
             </button>
             <div className="flex items-center">
@@ -693,8 +695,7 @@ export default function ChatRoom({ username, avatarIndex: initialAvatarIndex }) 
         </div>
         
         {/* Messages Area */}
-        <div className="flex-1 p-2 sm:p-4 space-y-1 overflow-y-auto overflow-x-hidden scrollbar-hidden bg-white dark:bg-slate-900">
-
+        <div className="flex-1 p-4 space-y-1 overflow-y-auto overflow-x-hidden scrollbar-hidden bg-white dark:bg-slate-900">
         {messages.map((msg) => (
   msg.isSystem ? (
     <div key={msg.id} className="text-center my-2">
@@ -720,9 +721,9 @@ export default function ChatRoom({ username, avatarIndex: initialAvatarIndex }) 
                   </div>
                 )}
                 
-                <div className={`max-w-[85%] sm:max-w-xs md:max-w-md relative ${
-                    msg.username === username ? 'order-1' : 'order-2'
-                  } message-container`}>
+                <div className={`max-w-xs md:max-w-md relative ${
+                  msg.username === username ? 'order-1' : 'order-2'
+                } message-container`}>
                   {/* Reply indicator */}
                   {msg.replyTo && (
                     <div className={`text-xs mb-1 px-2 py-1 rounded border-l-2 ${
@@ -924,7 +925,7 @@ export default function ChatRoom({ username, avatarIndex: initialAvatarIndex }) 
         </div>
         
         {/* Message Input */}
-        <div className="p-2 sm:p-3 bg-white/80 dark:bg-gray-900/80 backdrop-blur-sm border-t border-gray-200 dark:border-gray-800">
+        <div className="p-3 bg-white/80 dark:bg-gray-900/80 backdrop-blur-sm border-t border-gray-200 dark:border-gray-800">
           {/* Reply preview */}
           {replyingTo && (
             <div className="relative bg-gradient-to-r from-purple-100/30 to-pink-100/30 dark:from-purple-900/30 dark:to-pink-900/30 rounded-t-lg p-2 mb-2 border-l-4 border-pink-400">
@@ -1030,9 +1031,9 @@ export default function ChatRoom({ username, avatarIndex: initialAvatarIndex }) 
       </div>
       
       {/* Overlay for mobile sidebar */}
-      {showSidebar && window.innerWidth < 1024 && (
+      {showSidebar && window.innerWidth < 1280 && (
         <div 
-          className="fixed inset-0 bg-black bg-opacity-50 z-10 lg:hidden"
+          className="fixed inset-0 bg-black bg-opacity-50 z-10 xl:hidden"
           onClick={() => setShowSidebar(false)}
         />
       )}
