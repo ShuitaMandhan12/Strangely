@@ -42,7 +42,7 @@ export default function ChatRoom({ username, avatarIndex: initialAvatarIndex }) 
   const [typingUsers, setTypingUsers] = useState([]);
   const [editingMessageId, setEditingMessageId] = useState(null);
   const [showEmojis, setShowEmojis] = useState(false);
-  const [showSidebar, setShowSidebar] = useState(window.innerWidth > 1280);
+  const [showSidebar, setShowSidebar] = useState(window.innerWidth > 768);
   const [darkMode, setDarkMode] = useState(false);
   const [readReceipts, setReadReceipts] = useState({});
   const [uploading, setUploading] = useState(false);
@@ -100,7 +100,7 @@ export default function ChatRoom({ username, avatarIndex: initialAvatarIndex }) 
   // Handle window resize for sidebar visibility
   useEffect(() => {
     const handleResize = () => {
-      setShowSidebar(window.innerWidth > 1280)
+      setShowSidebar(window.innerWidth > 768)
     }
 
     window.addEventListener('resize', handleResize)
@@ -131,7 +131,7 @@ export default function ChatRoom({ username, avatarIndex: initialAvatarIndex }) 
         }
       }
     
-      if (window.innerWidth < 1280 && showSidebar && 
+      if (window.innerWidth < 768 && showSidebar && 
           !event.target.closest('.sidebar') && 
           !event.target.closest('.menu-button')) {
         setShowSidebar(false)
@@ -434,7 +434,7 @@ export default function ChatRoom({ username, avatarIndex: initialAvatarIndex }) 
     socket.emit('change-room', room)
     setActiveRoom(room)
     setReplyingTo(null)
-    if (window.innerWidth < 1280) {
+    if (window.innerWidth < 768) {
       setShowSidebar(false)
     }
   }
@@ -507,21 +507,20 @@ export default function ChatRoom({ username, avatarIndex: initialAvatarIndex }) 
   };
 
   return (
-    <div className="h-screen w-full flex flex-col overflow-hidden bg-slate-50 dark:bg-slate-900">
+    <div className={`h-screen w-screen overflow-hidden bg-slate-50 dark:bg-slate-900 flex flex-col`}>
       {/* Mobile menu button */}
       
       
       {/* Sidebar - Rooms and Online Users */}
-     <div className="flex flex-1 min-h-0">
-  {/* Sidebar */}
-  <div ref={sidebarRef} className={`
-    ${showSidebar ? 'translate-x-0' : '-translate-x-full xl:translate-x-0'}
-    transform transition-transform duration-300 ease-in-out
-    fixed xl:relative inset-y-0 left-0 z-20
-    bg-white/90 dark:bg-gray-900/90 backdrop-blur-lg
-    w-72 shadow-lg xl:shadow-none sidebar flex flex-col
-    border-r border-gray-200 dark:border-gray-800
-  `}>
+      <div 
+        ref={sidebarRef}
+        className={`
+${showSidebar ? 'translate-x-0' : '-translate-x-full md:translate-x-0'} 
+        transform transition-transform duration-300 ease-in-out 
+        fixed md:relative inset-y-0 left-0 z-20 bg-white/90 dark:bg-gray-900/90 backdrop-blur-lg w-72 shadow-lg md:shadow-none sidebar
+        flex flex-col border-r border-gray-200 dark:border-gray-800
+      `}
+      >
         <div className="p-4 bg-gradient-to-r from-purple-900 to-pink-800 flex justify-between items-center border-b border-purple-500/30">
           <h2 className="text-xl font-bold text-white neon-text">Strangely</h2>
           <div className="flex items-center space-x-3">
@@ -547,8 +546,7 @@ export default function ChatRoom({ username, avatarIndex: initialAvatarIndex }) 
             </button>
           </div>
         </div>
-        </div>
-
+        
         {/* Tab Navigation */}
         <div className="flex border-b border-gray-200 dark:border-gray-800">
           <button
@@ -655,14 +653,14 @@ export default function ChatRoom({ username, avatarIndex: initialAvatarIndex }) 
       </div>
       
       {/* Main Chat Area */}
-       <div className="flex-1 flex flex-col min-w-0 h-full">
+      <div className="flex-1 flex flex-col relative h-full">
         {/* Chat Header */}
         <div className="bg-gradient-to-r from-purple-900/80 to-pink-800/80 p-3 flex items-center justify-between backdrop-blur-sm border-b border-purple-500/30">
           <div className="flex items-center space-x-3">
             <button 
               onClick={() => setShowSidebar(true)}
-              className="xl:hidden mr-1 p-1.5 rounded-full hover:bg-purple-800/30 text-white menu-button"
->
+              className="md:hidden mr-1 p-1.5 rounded-full hover:bg-purple-800/30 text-white"
+            >
               <Menu size={20} />
             </button>
             <div className="flex items-center">
@@ -1031,9 +1029,9 @@ export default function ChatRoom({ username, avatarIndex: initialAvatarIndex }) 
       </div>
       
       {/* Overlay for mobile sidebar */}
-      {showSidebar && window.innerWidth < 1280 && (
+      {showSidebar && window.innerWidth < 768 && (
         <div 
-          className="fixed inset-0 bg-black bg-opacity-50 z-10 xl:hidden"
+          className="fixed inset-0 bg-black bg-opacity-50 z-10 md:hidden"
           onClick={() => setShowSidebar(false)}
         />
       )}
