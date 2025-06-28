@@ -507,7 +507,7 @@ export default function ChatRoom({ username, avatarIndex: initialAvatarIndex }) 
   };
 
   return (
-    <div className={`h-[100dvh] w-screen overflow-hidden bg-slate-50 dark:bg-slate-900 flex flex-col`}>
+    <div className={`md:h-screen h-[100dvh] w-screen overflow-hidden bg-slate-50 dark:bg-slate-900 flex flex-col`}>
       {/* Mobile menu button */}
       
       
@@ -653,7 +653,7 @@ export default function ChatRoom({ username, avatarIndex: initialAvatarIndex }) 
       </div>
       
       {/* Main Chat Area */}
-      <div className="flex-1 flex flex-col relative h-[calc(100dvh-3.5rem)]">
+      <div className="flex-1 flex flex-col relative overflow-hidden">
         {/* Chat Header */}
         <div className="bg-gradient-to-r from-purple-900/80 to-pink-800/80 p-3 flex items-center justify-between backdrop-blur-sm border-b border-purple-500/30">
           <div className="flex items-center space-x-3">
@@ -693,7 +693,7 @@ export default function ChatRoom({ username, avatarIndex: initialAvatarIndex }) 
         </div>
         
         {/* Messages Area */}
-        <div className="flex-1 p-4 space-y-1 overflow-y-auto overflow-x-hidden scrollbar-hidden bg-white dark:bg-slate-900" style={{ maxHeight: 'calc(100% - 3.5rem)' }}>
+        <div className="flex-1 p-4 space-y-1 overflow-y-auto overflow-x-hidden scrollbar-hidden bg-white dark:bg-slate-900 md:max-h-[none] max-h-[calc(100dvh-120px)]">
         {messages.map((msg) => (
   msg.isSystem ? (
     <div key={msg.id} className="text-center my-2">
@@ -923,7 +923,7 @@ export default function ChatRoom({ username, avatarIndex: initialAvatarIndex }) 
         </div>
         
         {/* Message Input */}
-        <div className="p-3 bg-white/80 dark:bg-gray-900/80 backdrop-blur-sm border-t border-gray-200 dark:border-gray-800 sticky bottom-0">
+        <div className="p-3 bg-white/80 dark:bg-gray-900/80 backdrop-blur-sm border-t border-gray-200 dark:border-gray-800">
           {/* Reply preview */}
           {replyingTo && (
             <div className="relative bg-gradient-to-r from-purple-100/30 to-pink-100/30 dark:from-purple-900/30 dark:to-pink-900/30 rounded-t-lg p-2 mb-2 border-l-4 border-pink-400">
