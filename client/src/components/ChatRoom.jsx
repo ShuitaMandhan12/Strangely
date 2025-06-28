@@ -693,7 +693,7 @@ export default function ChatRoom({ username, avatarIndex: initialAvatarIndex }) 
         </div>
         
         {/* Messages Area */}
-        <div className="flex-1 p-4 space-y-1 overflow-y-auto overflow-x-hidden scrollbar-hidden bg-white dark:bg-slate-900" style={{ height: 'calc(100vh - 60px)' }}>
+        <div className="flex-1 p-4 space-y-1 overflow-y-auto overflow-x-hidden scrollbar-hidden bg-white dark:bg-slate-900">
         {messages.map((msg) => (
   msg.isSystem ? (
     <div key={msg.id} className="text-center my-2">
