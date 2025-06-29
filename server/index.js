@@ -7,21 +7,13 @@ const { v4: uuidv4 } = require('uuid');
 const app = express();
 app.use(cors());
 
-app.get("/", (req, res) => {
-  res.send("✅ Backend is live and working!");
-});
-
-// ✅ First define the server
 const server = http.createServer(app);
-
-// ✅ Then initialize Socket.IO using the server
 const io = socketIo(server, {
   cors: {
-    origin: "https://strangely-l827.vercel.app/",
+    origin: "http://localhost:5173",
     methods: ["GET", "POST"]
   }
 });
-
 
 // Data structures
 const users = {};
@@ -396,8 +388,7 @@ io.on('connection', (socket) => {
   });
 });
 
-const PORT = process.env.PORT || 5000;
-
+const PORT = 5000;
 server.listen(PORT, () => {
   console.log(`🚀 Server running on http://localhost:${PORT}`);
 });
