@@ -159,18 +159,9 @@ export default function ChatRoom({ username, avatarIndex: initialAvatarIndex }) 
       setMessages(prev => [...prev, data])
     })
 
-    // Replace the current room-history handler with this:
-socket.on('room-history', (history) => {
-  // Only show history if user joined before the last message was sent
-  const lastMessageTime = history.length > 0 ? new Date(history[history.length-1].timestamp).getTime() : 0;
-  const userJoinTime = new Date().getTime();
-  
-  if (lastMessageTime < userJoinTime) {
-    setMessages(history);
-  } else {
-    setMessages([]);
-  }
-})
+  socket.on('room-history', (history) => {
+      setMessages(history)
+    })
 
     socket.on('user-joined', (username) => {
       setMessages(prev => [...prev, { 
@@ -519,7 +510,7 @@ socket.on('room-history', (history) => {
   };
 
   return (
-    <div className={`h-screen w-screen overflow-hidden bg-slate-50 dark:bg-slate-900 flex`}>
+  <div className={`h-screen sm:h-[100dvh] w-screen overflow-hidden bg-slate-50 dark:bg-slate-900 flex`}>
       {/* Mobile menu button */}
       
       
@@ -705,7 +696,7 @@ socket.on('room-history', (history) => {
         </div>
         
         {/* Messages Area */}
-        <div className="flex-1 p-4 space-y-1 overflow-y-auto overflow-x-hidden scrollbar-hidden bg-white dark:bg-slate-900">
+        <div className="flex-1 p-4 space-y-1 overflow-y-auto overflow-x-hidden scrollbar-hidden bg-white dark:bg-slate-900 sm:[max-height:calc(100dvh-120px)]">
         {messages.map((msg) => (
   msg.isSystem ? (
     <div key={msg.id} className="text-center my-2">
