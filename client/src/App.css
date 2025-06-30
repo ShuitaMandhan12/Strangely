@@ -12,6 +12,16 @@
   }
 }
 
+@media (max-width: 639px) {
+  .emoji-picker-react {
+    width: 100vw !important;
+    max-width: 100%;
+    left: 0 !important;
+    right: 0 !important;
+    margin: 0 auto;
+  }
+}
+
 /* Custom scrollbar */
 ::-webkit-scrollbar {
   width: 8px;

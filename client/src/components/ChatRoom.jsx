@@ -696,7 +696,8 @@ export default function ChatRoom({ username, avatarIndex: initialAvatarIndex }) 
         </div>
         
         {/* Messages Area */}
-        <div className="flex-1 p-4 space-y-1 overflow-y-auto overflow-x-hidden scrollbar-hidden bg-white dark:bg-slate-900 sm:[max-height:calc(100dvh-120px)]">
+        <div className="flex-1 p-4 space-y-1 overflow-y-auto overflow-x-hidden scrollbar-hidden bg-white dark:bg-slate-900 
+              sm:max-h-[calc(100dvh-120px)]">
         {messages.map((msg) => (
   msg.isSystem ? (
     <div key={msg.id} className="text-center my-2">
@@ -863,26 +864,31 @@ export default function ChatRoom({ username, avatarIndex: initialAvatarIndex }) 
                   {showEmojiPalette === msg.id && (
                     <div 
                       ref={emojiPaletteRef}
-                      className={`absolute ${msg.username === username ? 'left-0' : 'right-0'} top-full mb-2 z-50`}
-                      style={{ 
-                        transform: msg.username === username ? 'translateX(-10px)' : 'translateX(300px)',
-                        left: msg.username === username ? '-300px' : 'auto',
-                        right: msg.username !== username ? '0px' : 'auto'
-                      }}
-                    >
-                      <EmojiPicker 
-                        onEmojiClick={(emojiData) => {
-                          handleReaction(msg.id, emojiData.emoji)
-                          setShowEmojiPalette(null)
-                        }}
-                        width={300}
-                        height={350}
-                        previewConfig={{ showPreview: false }}
-                        searchDisabled
-                        skinTonesDisabled
-                      />
-                    </div>
-                  )}
+                      className={`fixed sm:absolute z-50 ${
+      msg.username === username 
+        ? 'left-2 sm:left-0 sm:-ml-10' 
+        : 'right-2 sm:right-0 sm:-mr-10'
+    }`}
+                      style={{
+      bottom: window.innerWidth < 640 ? '80px' : 'auto',
+      top: window.innerWidth < 640 ? 'auto' : '100%',
+      transform: window.innerWidth < 640 ? 'none' : 
+        (msg.username === username ? 'translateX(-10px)' : 'translateX(10px)')
+    }}
+  >
+                       <EmojiPicker 
+      onEmojiClick={(emojiData) => {
+        handleReaction(msg.id, emojiData.emoji);
+        setShowEmojiPalette(null);
+      }}
+      width={300}
+      height={350}
+      previewConfig={{ showPreview: false }}
+      searchDisabled
+      skinTonesDisabled
+    />
+  </div>
+)}
 
                   {/* Message Reactions */}
                   {msg.reactions && Object.keys(msg.reactions).length > 0 && (
