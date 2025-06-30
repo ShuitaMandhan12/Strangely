@@ -159,9 +159,18 @@ export default function ChatRoom({ username, avatarIndex: initialAvatarIndex }) 
       setMessages(prev => [...prev, data])
     })
 
-    socket.on('room-history', (history) => {
-      setMessages(history)
-    })
+    // Replace the current room-history handler with this:
+socket.on('room-history', (history) => {
+  // Only show history if user joined before the last message was sent
+  const lastMessageTime = history.length > 0 ? new Date(history[history.length-1].timestamp).getTime() : 0;
+  const userJoinTime = new Date().getTime();
+  
+  if (lastMessageTime < userJoinTime) {
+    setMessages(history);
+  } else {
+    setMessages([]);
+  }
+})
 
     socket.on('user-joined', (username) => {
       setMessages(prev => [...prev, { 
@@ -486,11 +495,11 @@ export default function ChatRoom({ username, avatarIndex: initialAvatarIndex }) 
     return messages.find(msg => msg.id === id)
   }
 
-  const toggleEmojiPalette = (messageId, event) => {
-    event.stopPropagation()
-    setShosidebarwEmojiPalette(showEmojiPalette === messageId ? null : messageId)
-    setActiveMessageMenu(null)
-  }
+ const toggleEmojiPalette = (messageId, event) => {
+  event.stopPropagation()
+  setShowEmojiPalette(showEmojiPalette === messageId ? null : messageId)
+  setActiveMessageMenu(null)
+}
 
   const handleMessageHover = (messageId) => {
     clearTimeout(hoverTimeoutRef.current)
