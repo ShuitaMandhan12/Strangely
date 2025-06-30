@@ -26,6 +26,7 @@ const rooms = new Map();
 const roomMessages = new Map();
 const readReceipts = new Map();
 const roomActivityTimers = new Map();
+const userJoinTimes = new Map();
 
 // Initialize default rooms
 ['general', 'gaming', 'movies', 'music'].forEach(room => {
@@ -99,38 +100,50 @@ io.on('connection', (socket) => {
 
   // When user joins
   socket.on('join', ({ username, avatarIndex }) => {
-   
-    currentUsername = username;
-    users[socket.id] = {
-      username,
-      id: socket.id,
-      room: currentRoom,
-      status: 'online',
-       avatarIndex: avatarIndex || 0
-    };
+  currentUsername = username;
+  users[socket.id] = {
+    username,
+    id: socket.id,
+    room: currentRoom,
+    status: 'online',
+    avatarIndex: avatarIndex || 0
+  };
 
-    rooms.get(currentRoom).add(socket.id);
-    socket.join(currentRoom);
-    updateRoomActivity(currentRoom);
+
+     if (!userJoinTimes.has(socket.id)) {
+    userJoinTimes.set(socket.id, new Map());
+  }
+  userJoinTimes.get(socket.id).set(currentRoom, Date.now());
+
+  rooms.get(currentRoom).add(socket.id);
+  socket.join(currentRoom);
+  updateRoomActivity(currentRoom);
     
     // Send history
-    const roomHistory = roomMessages.get(currentRoom) || [];
-    const filteredHistory = roomHistory.filter(msg => 
-      msg.isSystem || msg.room === currentRoom
-    );
-    socket.emit('room-history', filteredHistory);
+     const roomHistory = roomMessages.get(currentRoom) || [];
+  const userJoinedAt = userJoinTimes.get(socket.id)?.get(currentRoom) || Date.now();
+  
+  const filteredHistory = roomHistory.filter(msg => {
+    // Always show system messages
+    if (msg.isSystem) return true;
+    
+    // Only show regular messages that were sent before user joined
+    const msgTime = new Date(msg.timestamp).getTime();
+    return msgTime < userJoinedAt;
+  });
+  
+  socket.emit('room-history', filteredHistory);
 
     // Send current room list to newly connected client
     socket.emit('room-list', Array.from(rooms.keys()));
     
     // Notify room about new user
    io.to(currentRoom).emit('user-joined', username);
-   io.to(currentRoom).emit('update-users', getUsersInRoom(currentRoom));
-
-
-    // Send current room list
-    socket.emit('room-list', Array.from(rooms.keys()));
-  });
+  io.to(currentRoom).emit('update-users', getUsersInRoom(currentRoom));
+  
+  // Send current room list
+  socket.emit('room-list', Array.from(rooms.keys()));
+});
 
   // When message is sent
   socket.on('send-message', (messageData) => {
@@ -186,42 +199,55 @@ io.on('connection', (socket) => {
 
   // When user changes room
   socket.on('change-room', (newRoom) => {
-    const user = users[socket.id];
-    if (!user || !isValidRoom(newRoom)) return;
-    
-    const oldRoom = user.room;
-    rooms.get(oldRoom).delete(socket.id);
-    socket.leave(oldRoom);
-    
-    io.to(oldRoom).emit('user-left', user.username);
-    io.to(oldRoom).emit('update-users', getUsersInRoom(oldRoom));
+  const user = users[socket.id];
+  if (!user || !isValidRoom(newRoom)) return;
+  
+  const oldRoom = user.room;
+  rooms.get(oldRoom).delete(socket.id);
+  socket.leave(oldRoom);
+  
+  io.to(oldRoom).emit('user-left', user.username);
+  io.to(oldRoom).emit('update-users', getUsersInRoom(oldRoom));
 
-    currentRoom = newRoom;
-    user.room = newRoom;
-    rooms.get(newRoom).add(socket.id);
-    socket.join(newRoom);
-    updateRoomActivity(newRoom);
+  currentRoom = newRoom;
+  user.room = newRoom;
+  rooms.get(newRoom).add(socket.id);
+  socket.join(newRoom);
+  updateRoomActivity(newRoom);
     
-    const roomHistory = roomMessages.get(newRoom) || [];
-    const filteredHistory = roomHistory.filter(msg => 
-      msg.isSystem || msg.room === newRoom
-    );
-    socket.emit('room-history', filteredHistory);
+     if (!userJoinTimes.has(socket.id)) {
+    userJoinTimes.set(socket.id, new Map());
+  }
+  userJoinTimes.get(socket.id).set(newRoom, Date.now());
+  
+  // Send history - modified to only show messages before user joined
+  const roomHistory = roomMessages.get(newRoom) || [];
+  const userJoinedAt = userJoinTimes.get(socket.id)?.get(newRoom) || Date.now();
+  
+  const filteredHistory = roomHistory.filter(msg => {
+    // Always show system messages
+    if (msg.isSystem) return true;
     
-    io.to(newRoom).emit('user-joined', user.username);
-    io.to(newRoom).emit('update-users', getUsersInRoom(newRoom));
-    
+    // Only show regular messages that were sent before user joined
+    const msgTime = new Date(msg.timestamp).getTime();
+    return msgTime < userJoinedAt;
+  });
+  
+  socket.emit('room-history', filteredHistory);
+  
+  io.to(newRoom).emit('user-joined', user.username);
+  io.to(newRoom).emit('update-users', getUsersInRoom(newRoom));
+  
     
     // Mark messages as read when joining room
-    const messages = roomMessages.get(newRoom);
-    if (messages && messages.length > 0) {
-      const lastMessage = messages[messages.length - 1];
-      if (lastMessage.username !== user.username) {
-        socket.emit('mark-as-read', lastMessage.id);
-      }
+      const messages = roomMessages.get(newRoom);
+  if (messages && messages.length > 0) {
+    const lastMessage = messages[messages.length - 1];
+    if (lastMessage.username !== user.username) {
+      socket.emit('mark-as-read', lastMessage.id);
     }
-  });
-
+  }
+});
 
   // When user creates a new room
   socket.on('create-room', (roomName) => {
