@@ -7,10 +7,15 @@ const { v4: uuidv4 } = require('uuid');
 const app = express();
 app.use(cors());
 
+// Add this after app.use(cors()) but before socket.io setup
+app.get('/', (req, res) => {
+  res.send('Chat backend is running');
+});
+
 const server = http.createServer(app);
 const io = socketIo(server, {
   cors: {
-    origin: "http://localhost:5173",
+    origin: "*",
     methods: ["GET", "POST"]
   }
 });
@@ -28,7 +33,7 @@ const roomActivityTimers = new Map();
   roomMessages.set(room, [{
     id: uuidv4(),
     username: 'System',
-    message: `Room ${room} created`,
+    // message: 'Room ${room} created',
     timestamp: new Date().toISOString(),
     isSystem: true,
     room: room
@@ -53,7 +58,7 @@ function checkInactiveRooms() {
       roomMessages.delete(roomName);
       roomActivityTimers.delete(roomName);
       io.emit('room-removed', roomName);
-      console.log(`Room ${roomName} removed due to inactivity`);
+      console.log('Room ${roomName} removed due to inactivity');
     }
   });
 }
@@ -388,7 +393,7 @@ io.on('connection', (socket) => {
   });
 });
 
-const PORT = 5000;
-server.listen(PORT, () => {
-  console.log(`🚀 Server running on http://localhost:${PORT}`);
+const PORT = process.env.PORT || 5000; // Modified to use environment variable
+server.listen(PORT, '0.0.0.0', () => { // Added '0.0.0.0' for Replit
+  console.log(`🚀 Server running on port ${PORT}`);
 });

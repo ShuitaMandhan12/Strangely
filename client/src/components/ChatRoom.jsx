@@ -9,7 +9,10 @@ import EmojiPicker from 'emoji-picker-react';
 import FileMessage from './FileMessage';
 import AvatarSelector from './AvatarSelector';
 
-const socket = io('http://localhost:5000');
+const socket = io('https://c0cf009d-1178-4d14-ab6b-1b8c7992a9e0-00-3qeancktqpevc.pike.replit.dev:5000/', {  // Use your actual Replit URL
+  path: '/socket.io/',
+  transports: ['websocket']
+});
 
 // Avatar component
 function Avatar({ username, avatarIndex, size = 'md', className = '' }) {
