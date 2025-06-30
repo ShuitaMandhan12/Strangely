@@ -393,7 +393,7 @@ io.on('connection', (socket) => {
   });
 });
 
-const PORT = process.env.PORT || 5000; // Modified to use environment variable
-server.listen(PORT, '0.0.0.0', () => { // Added '0.0.0.0' for Replit
+const PORT = process.env.PORT || 3000; // Glitch uses 3000 by default
+server.listen(PORT, '0.0.0.0', () => {
   console.log(`🚀 Server running on port ${PORT}`);
 });
